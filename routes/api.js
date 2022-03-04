@@ -17,7 +17,7 @@ router.get('/', (req,res)=>{
     res.send('From API route')
 }) 
 
-// route pour inscription dans le site
+// API pour s inscrire et connecter
 router.post('/register', (req,res)=>{
     let userData=req.body
     let user= new User( userData)
@@ -46,6 +46,92 @@ router.post('/login',(req,res) =>{
             }
         }
     })
+}) 
+ 
+// Api pour les evenements de notre sites  
+router.get ('/events',(req,res)=>{
+    let events =[
+         {
+     "_id":"1",
+     "cours":"Angular", 
+     "description":"framework fontend",  
+     "Overture":"2022-03-01" 
+    }, 
+
+    {
+        "_id":"2",
+        "cours":"Mongodb", 
+        "description":" base de donnees nosql",  
+        "Overture":"2022-04-01" 
+       }, 
+
+       {
+        "_id":"3",
+        "cours":"Express", 
+        "description":" framework pour les servers node js",  
+        "Overture":"2022-04-01" 
+       },
+       {
+        "_id":"4",
+        "cours":"Nodejs", 
+        "description":"environnement d'exécution multiplateforme pour la couche serveur",  
+        "Overture":"2022-06-12" 
+       }, 
+
+       {
+        "_id":"5",
+        "cours":"Javascript", 
+        "description":" angage de script léger, orienté objet",  
+        "Overture":"2022-06-01" 
+       },
+
+    ] 
+    res.json(events)
+}) 
+
+
+router.get ('/certif',(req,res)=>{
+    let events =[
+         {
+     "_id":"1",
+     "module":"Mean-stack", 
+     "Prix":"500$",  
+     "Overture":"2022-03-01" ,
+     "Dure":"17 semaines"
+    }, 
+
+    { "_id":"2",
+    "module":"MERN-stack", 
+    "Prix":"300$",  
+    "Overture":"2023-03-01" ,
+    "Dure":"17 semaines"
+       }, 
+
+       {
+        "_id":"3",
+     "module":"PHYTOH", 
+     "Prix":"500$",  
+     "Overture":"2022-03-01" ,
+     "Dure":"20 semaines"
+       },
+       {
+        "_id":"4",
+     "module":"MOBILE", 
+     "Prix":"500$",  
+     "Overture":"2022-06-5" ,
+     "Dure":"17 semaines"
+       }, 
+
+       {
+        "_id":"5",
+     "module":"DATASCIENCE", 
+     "Prix":"1000$",  
+     "Overture":"2022-04-01" ,
+     "Dure":"17 semaines"
+       },
+
+    ] 
+    res.json(events)
 })
 
 
