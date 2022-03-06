@@ -1,8 +1,10 @@
 //ajoutons tout les demandes de terminaisons de  API 
 const express=require('express')
+const jwt= require('jsonwebtoken')
 const router=express.Router()
 const User=require('../models/user')
 const mongoose=require('mongoose')
+const { urlencoded } = require('body-parser')
 const db="mongodb+srv://sada56:fally1956@cluster0.gxkrr.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 
 mongoose.connect(db,err=>{
@@ -41,8 +43,10 @@ router.post('/login',(req,res) =>{
             }else
             if(user.password !==userData.password){
                 res.status(401).send('Invalid password')
-            }else{
-                res.status(200).send(user)
+            }else{ 
+                let payload={subject:urlencoded._id}
+                let token =jwt.sign(payload,'secretKey')
+                res.status(200).send({token})
             }
         }
     })
@@ -55,35 +59,42 @@ router.get ('/events',(req,res)=>{
      "_id":"1",
      "cours":"Angular", 
      "description":"framework fontend",  
-     "Overture":"2022-03-01" 
+     "date":"2022-03-01" 
     }, 
 
     {
         "_id":"2",
         "cours":"Mongodb", 
         "description":" base de donnees nosql",  
-        "Overture":"2022-04-01" 
+        "date":"2022-04-01" 
        }, 
 
        {
         "_id":"3",
         "cours":"Express", 
         "description":" framework pour les servers node js",  
-        "Overture":"2022-04-01" 
+        "date":"2022-04-01" 
        },
        {
         "_id":"4",
         "cours":"Nodejs", 
         "description":"environnement d'exécution multiplateforme pour la couche serveur",  
-        "Overture":"2022-06-12" 
+        "date":"2022-06-12" 
        }, 
 
        {
         "_id":"5",
         "cours":"Javascript", 
         "description":" angage de script léger, orienté objet",  
-        "Overture":"2022-06-01" 
-       },
+        "date":"2022-06-01" 
+       }, 
+
+       {
+        "_id":"6",
+        "cours":"Boostrapt", 
+        "description":" framework css",  
+        "date":"2022-06-01" 
+       }
 
     ] 
     res.json(events)
@@ -96,14 +107,14 @@ router.get ('/certif',(req,res)=>{
      "_id":"1",
      "module":"Mean-stack", 
      "Prix":"500$",  
-     "Overture":"2022-03-01" ,
+     "date":"2022-03-01" ,
      "Dure":"17 semaines"
     }, 
 
     { "_id":"2",
     "module":"MERN-stack", 
     "Prix":"300$",  
-    "Overture":"2023-03-01" ,
+    "date":"2023-03-01" ,
     "Dure":"17 semaines"
        }, 
 
@@ -111,14 +122,14 @@ router.get ('/certif',(req,res)=>{
         "_id":"3",
      "module":"PHYTOH", 
      "Prix":"500$",  
-     "Overture":"2022-03-01" ,
+     "date":"2022-03-01" ,
      "Dure":"20 semaines"
        },
        {
         "_id":"4",
      "module":"MOBILE", 
      "Prix":"500$",  
-     "Overture":"2022-06-5" ,
+     "date":"2022-06-5" ,
      "Dure":"17 semaines"
        }, 
 
@@ -126,7 +137,15 @@ router.get ('/certif',(req,res)=>{
         "_id":"5",
      "module":"DATASCIENCE", 
      "Prix":"1000$",  
-     "Overture":"2022-04-01" ,
+     "date":"2022-04-01" ,
+     "Dure":"17 semaines"
+       },
+
+       {
+        "_id":"6",
+     "module":"systeme embarquer", 
+     "Prix":"1000$",  
+     "date":"2022-04-01" ,
      "Dure":"17 semaines"
        },
 
