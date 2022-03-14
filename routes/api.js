@@ -13,7 +13,24 @@ mongoose.connect(db,err=>{
     }else{
         console.log('connected to mongodb')
     }
-})
+}) 
+function  verifyToken(req,res,next){
+    if(!req.headers.authorization){
+        return res.status(401).send('Unauthorized request')
+    } 
+    let token =req.headers.authorization.split('')[1]
+    if(token=== 'null'){
+        return res.status(401).send('Unauthorized request')
+    }
+    let payload=jwt.verify(token,'secretkay') 
+    if(!payload){
+        return res.status(401).send('Unauthorized request')
+    } 
+    req.userId=payload.subject 
+    next()
+}
+
+
 
 router.get('/', (req,res)=>{
     res.send('From API route')
@@ -101,7 +118,7 @@ router.get ('/events',(req,res)=>{
 }) 
 
 
-router.get ('/certif',(req,res)=>{
+router.get ('/certif', verifyToken,(req,res)=>{
     let events =[
          {
      "_id":"1",
